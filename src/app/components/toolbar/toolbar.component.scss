@@ -1,0 +1,14 @@
+.toolbar {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--color-border, #333);
+
+  button {
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+}

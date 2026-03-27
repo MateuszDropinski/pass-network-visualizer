@@ -1,0 +1,90 @@
+<main class="app-shell">
+  <div #exportArea class="export-area">
+    @if (hasData) {
+      <!-- Toggles -->
+      <div class="toggle-bar">
+        <mat-button-toggle-group
+          [value]="teamView"
+          (change)="onTeamViewChange($event.value)"
+          hideSingleSelectionIndicator
+        >
+          <mat-button-toggle value="home">Home</mat-button-toggle>
+          <mat-button-toggle value="both">Both</mat-button-toggle>
+          <mat-button-toggle value="away">Away</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group
+          [value]="startersOnly ? 'starters' : 'all'"
+          (change)="onPlayersToggle($event.value)"
+          hideSingleSelectionIndicator
+        >
+          <mat-button-toggle value="starters">Starting XI</mat-button-toggle>
+          <mat-button-toggle value="all">All Players</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <!-- Pass network pitches -->
+      <div class="pitch-row">
+        @if (showHome) {
+          <div class="team-column">
+            <h2 class="team-name home">{{ homeTeamName }}</h2>
+            <app-pass-network
+              [diagramData]="homeDiagramData"
+              [pitchWidth]="pitchWidth"
+              [pitchHeight]="pitchHeight"
+            />
+          </div>
+        }
+        @if (showAway) {
+          <div class="team-column">
+            <h2 class="team-name away">{{ awayTeamName }}</h2>
+            <app-pass-network
+              [diagramData]="awayDiagramData"
+              [pitchWidth]="pitchWidth"
+              [pitchHeight]="pitchHeight"
+            />
+          </div>
+        }
+      </div>
+
+      <app-legend [homeTeam]="homeTeamName" [awayTeam]="awayTeamName" />
+    } @else {
+      <!-- Empty state -->
+      <div class="empty-state-wrapper">
+        <div class="empty-pitch-container">
+          <app-pitch [width]="pitchWidth" [height]="pitchHeight" />
+          <div class="empty-overlay">
+            <div class="empty-card">
+              @if (loading()) {
+                <mat-spinner diameter="48" />
+                <p class="empty-subtitle">Loading match data…</p>
+              } @else {
+                <svg class="empty-icon" viewBox="0 0 64 64" width="64" height="64" fill="none">
+                  <circle cx="32" cy="32" r="30" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+                  <line x1="32" y1="2" x2="32" y2="62" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <circle cx="32" cy="32" r="10" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <circle cx="32" cy="32" r="1.5" fill="rgba(255,255,255,0.35)"/>
+                </svg>
+                <h2 class="empty-title">Pass Network Visualizer</h2>
+                <p class="empty-subtitle">
+                  Import a StatsBomb JSON file or use the AI prompt<br>
+                  to convert your data and visualize a pass network.
+                </p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <app-toolbar
+    #toolbar
+    [loading]="loading()"
+    [hasData]="hasData"
+    (matchDataLoaded)="onMatchDataLoaded($event)"
+    (loadingChange)="loading.set($event)"
+    (exportImage)="exportAsImage()"
+    (exportPdf)="exportAsPdf()"
+  />
+</main>

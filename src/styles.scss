@@ -1,0 +1,95 @@
+@use '@angular/material' as mat;
+
+// ─── SCSS Variables ───────────────────────────────────────────────────────────
+$color-background: #0f0f0f;
+$color-surface: #1a1a1a;
+$color-text: #f0f0f0;
+$color-text-muted: #888888;
+$color-home: #4a9eff;
+$color-away: #ff6b4a;
+$color-pass-high: #4caf50;
+$color-pass-mid: #ff9800;
+$color-pass-low: #f44336;
+$color-pitch-line: #ffffff;
+
+// ─── CSS Custom Properties (for inline-styled components) ────────────────────
+:root {
+  --color-background: #{$color-background};
+  --color-surface: #{$color-surface};
+  --color-text: #{$color-text};
+  --color-text-muted: #{$color-text-muted};
+  --color-home: #{$color-home};
+  --color-away: #{$color-away};
+  --color-pass-high: #{$color-pass-high};
+  --color-pass-mid: #{$color-pass-mid};
+  --color-pass-low: #{$color-pass-low};
+  --color-border: #333333;
+}
+
+// ─── Global Reset ─────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  color-scheme: dark;
+  height: 100%;
+  background-color: $color-background;
+  color: $color-text;
+  font-family: Roboto, sans-serif;
+}
+
+// ─── Dark Snackbar ───────────────────────────────────────────────────────────
+.dark-snackbar {
+  --mdc-snackbar-container-color: #{$color-surface};
+  --mdc-snackbar-supporting-text-color: #{$color-text};
+  --mat-snack-bar-button-color: #{$color-home};
+}
+
+.dark-snackbar-error {
+  --mdc-snackbar-container-color: #3a1c1c;
+  --mdc-snackbar-supporting-text-color: #ff8a80;
+  --mat-snack-bar-button-color: #ff8a80;
+}
+
+// ─── Print Styles ────────────────────────────────────────────────────────────
+@media print {
+  app-toolbar,
+  .cdk-overlay-container,
+  .toggle-bar,
+  .empty-state-wrapper {
+    display: none !important;
+  }
+
+  .export-area {
+    width: 100%;
+    height: auto;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+}

@@ -1,0 +1,47 @@
+<div
+  class="diagram-container"
+  [style.width.px]="pitchWidth()"
+  [style.height.px]="pitchHeight()"
+  (click)="onBackgroundClick()"
+>
+  <app-pitch [width]="pitchWidth()" [height]="pitchHeight()" />
+
+  <ng-diagram
+    class="diagram-overlay"
+    [model]="model"
+    [config]="config"
+    [nodeTemplateMap]="nodeTemplateMap"
+    [edgeTemplateMap]="edgeTemplateMap"
+  />
+</div>
+
+@if (tooltipData(); as tip) {
+  <div
+    class="node-tooltip"
+    #tooltipEl
+    [style.left.px]="tooltipPosition().x"
+    [style.top.px]="tooltipPosition().y"
+  >
+    <div class="tooltip-header">#{{ tip.node.number ?? '?' }} {{ tip.node.name }}</div>
+    <div class="tooltip-row"><span class="tooltip-label">Passes made</span> {{ tip.node.totalPassesMade }}</div>
+    <div class="tooltip-row"><span class="tooltip-label">Passes received</span> {{ tip.node.totalPassesReceived }}</div>
+    <div class="tooltip-row"><span class="tooltip-label">Accuracy</span> {{ (tip.node.accuracyRate * 100).toFixed(1) }}%</div>
+
+    @if (tip.details.length > 0) {
+      <div class="tooltip-exchanges">
+        <div class="exchange-header">
+          <span class="exchange-title">Pass exchanges</span>
+          <span class="exchange-col-label">Done</span>
+          <span class="exchange-col-label">Received</span>
+        </div>
+        @for (d of tip.details; track d.partnerId) {
+          <div class="exchange-row">
+            <span class="exchange-name">#{{ d.partnerNumber ?? '?' }} {{ d.partnerName }}</span>
+            <span class="exchange-stats">{{ d.accurateTo }}/{{ d.passesTo }}</span>
+            <span class="exchange-stats">{{ d.accurateFrom }}/{{ d.passesFrom }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

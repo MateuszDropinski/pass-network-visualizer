@@ -1,0 +1,116 @@
+:host {
+  display: block;
+}
+
+.diagram-container {
+  position: relative;
+
+  app-pitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .diagram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    --ngd-diagram-background-color: transparent;
+    background: transparent;
+    z-index: 1;
+  }
+}
+
+.node-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  background: var(--color-surface, #1a1a2e);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--color-text, #e8e8e8);
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  letter-spacing: normal;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  max-height: 360px;
+  overflow-y: auto;
+
+  .tooltip-header {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 6px;
+  }
+
+  .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    line-height: 1.7;
+  }
+
+  .tooltip-label {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .tooltip-exchanges {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .exchange-header,
+    .exchange-row {
+      display: flex;
+      gap: 12px;
+      line-height: 1.7;
+      font-size: 11px;
+    }
+
+    .exchange-header {
+      margin-bottom: 2px;
+
+      .exchange-title {
+        flex: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 10px;
+      }
+
+      .exchange-col-label {
+        width: 52px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+    }
+
+    .exchange-row {
+      .exchange-name {
+        flex: 1;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .exchange-stats {
+        width: 52px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-variant-numeric: tabular-nums;
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<!-- viewBox uses real pitch dimensions (105m × 68m). Width/height passed in pixels already match this ratio. -->
+<svg
+  [attr.width]="width()"
+  [attr.height]="height()"
+  viewBox="0 0 105 68"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <style>
+    .pitch-bg { fill: #0f0f0f; }
+    .pitch-line { fill: none; stroke: white; stroke-width: 0.5; }
+    .pitch-spot { fill: white; stroke: none; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="105" height="68" class="pitch-bg" />
+
+  <!-- Outer boundary -->
+  <rect x="0" y="0" width="105" height="68" class="pitch-line" />
+
+  <!-- Halfway line -->
+  <line x1="52.5" y1="0" x2="52.5" y2="68" class="pitch-line" />
+
+  <!-- Center circle -->
+  <circle cx="52.5" cy="34" r="9.15" class="pitch-line" />
+
+  <!-- Center spot -->
+  <circle cx="52.5" cy="34" r="0.5" class="pitch-spot" />
+
+  <!-- Left penalty area -->
+  <rect x="0" y="13.84" width="16.5" height="40.32" class="pitch-line" />
+
+  <!-- Right penalty area -->
+  <rect x="88.5" y="13.84" width="16.5" height="40.32" class="pitch-line" />
+
+  <!-- Left goal area (6-yard box) -->
+  <rect x="0" y="24.84" width="5.5" height="18.32" class="pitch-line" />
+
+  <!-- Right goal area (6-yard box) -->
+  <rect x="99.5" y="24.84" width="5.5" height="18.32" class="pitch-line" />
+
+  <!-- Left penalty spot -->
+  <circle cx="11" cy="34" r="0.5" class="pitch-spot" />
+
+  <!-- Right penalty spot -->
+  <circle cx="94" cy="34" r="0.5" class="pitch-spot" />
+
+  <!-- Corner arcs -->
+  @for (arc of cornerArcs; track $index) {
+    <path [attr.d]="arc" class="pitch-line" />
+  }
+
+  <!-- Left goal -->
+  <rect x="-2.44" y="30.34" width="2.44" height="7.32" class="pitch-line" />
+
+  <!-- Right goal -->
+  <rect x="105" y="30.34" width="2.44" height="7.32" class="pitch-line" />
+</svg>

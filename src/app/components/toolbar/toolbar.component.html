@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <button mat-raised-button [disabled]="loading" (click)="importStatsBomb()">
+    Import StatsBomb JSON
+  </button>
+  <button mat-raised-button [disabled]="loading" (click)="copyAiPrompt()">
+    Copy AI Prompt
+  </button>
+  <button mat-raised-button [disabled]="loading" (click)="importJson()">
+    Import JSON
+  </button>
+  <button mat-raised-button [disabled]="loading || !hasData" [matMenuTriggerFor]="exportMenu">
+    Export
+  </button>
+  <mat-menu #exportMenu="matMenu">
+    <button mat-menu-item (click)="exportImage.emit()">Export as Image</button>
+    <button mat-menu-item (click)="exportPdf.emit()">Export as PDF</button>
+  </mat-menu>
+</div>
