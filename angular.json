@@ -28,6 +28,10 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "sample-barcelona-alaves-statsbomb.json",
+                "input": "."
               }
             ],
             "styles": [

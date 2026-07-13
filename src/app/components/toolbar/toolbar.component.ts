@@ -1,4 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +9,7 @@ import { MatchData } from '../../models/match.model';
 import { AI_PROMPT } from '../../constants/ai-prompt.constant';
 
 const SNACKBAR_DURATION = 3000;
+const SAMPLE_FILE = 'sample-barcelona-alaves-statsbomb.json';
 
 @Component({
   selector: 'app-toolbar',
@@ -26,6 +28,28 @@ export class ToolbarComponent {
 
   private readonly snackBar = inject(MatSnackBar);
   private readonly statsbombAdapter = inject(StatsbombAdapterService);
+  private readonly http = inject(HttpClient);
+
+  loadSample(): void {
+    this.loadingChange.emit(true);
+    this.http.get<unknown[]>(SAMPLE_FILE).subscribe({
+      next: raw => {
+        try {
+          const matchData = this.statsbombAdapter.convert(raw);
+          this.matchDataLoaded.emit(matchData);
+          this.showSnackbar('Sample match loaded — Barcelona vs Deportivo Alavés');
+        } catch {
+          this.showSnackbar('Failed to load sample match');
+        } finally {
+          this.loadingChange.emit(false);
+        }
+      },
+      error: () => {
+        this.showSnackbar('Failed to load sample match');
+        this.loadingChange.emit(false);
+      },
+    });
+  }
 
   importStatsBomb(): void {
     this.openFilePicker(file => {

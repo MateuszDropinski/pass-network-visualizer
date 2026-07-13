@@ -25,7 +25,7 @@ Click **Import StatsBomb** and select a raw StatsBomb events JSON file. The app 
 3. The AI returns a converted JSON file
 4. Click **Import JSON** and select the converted file
 
-A sample match file (Barcelona vs Deportivo Alaves, La Liga) is included for quick testing.
+A sample match file (Barcelona vs Deportivo Alaves, La Liga) is included for quick testing — click **Load Sample Match** to try the app without importing anything.
 
 ## Export
 

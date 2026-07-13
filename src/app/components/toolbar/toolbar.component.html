@@ -1,4 +1,7 @@
 <div class="toolbar">
+  <button mat-raised-button [disabled]="loading" (click)="loadSample()">
+    Load Sample Match
+  </button>
   <button mat-raised-button [disabled]="loading" (click)="importStatsBomb()">
     Import StatsBomb JSON
   </button>
